@@ -20,6 +20,9 @@ const router = express.Router()
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017/examRegistration"
 const authentication=require("./routes/authentication")
 const tokenVerifiers=require("./tokenVerifier")
+const Feed=require("./routes/feed")
+
+
 
 /** configure cloudinary */
 cloudinary.config({
@@ -34,14 +37,17 @@ try {
         //useMongoClient: true
     })    
 } catch (error) {
-    
+    console.log("Error")
+    console.log(error)
 }
 
 let port = 5000 || process.env.PORT
 
 /** set up routes {API Endpoints} */
+Feed(router)
 authentication(router)
 tokenVerifiers(router)
+
 //routes(router)
 
 

@@ -18,13 +18,23 @@ export function loadSubjects () {
         })
     }
 }
+
+export function loadFeed (feed_data) {
+    return (dispatch) => {
+        axios.post(`${url}feed`,feed_data).then((res)=>{
+            let feedPosts = res.data
+            dispatch({type: 'GET_FEED', "data":feedPosts})
+        }).catch((err)=>console.log(err))
+    }
+}
 // sign in user given the right username and password
 export function SignInUser (user_data) {
     return (dispatch) => {
         axios.post(`${url}Authenticate`,user_data).then((res)=>{
             let user = res.data
+            //console.log(user_data)
             //localStorage.setItem('Auth', JSON.stringify(user))
-            dispatch({type: 'SET_USER', "data":user})
+            dispatch({type:'SET_USER', "data":user})
         }).catch((err)=>console.log(err))
     }
 }

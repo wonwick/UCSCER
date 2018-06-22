@@ -14,5 +14,3 @@ export const history = createHistory();
 
 export const store = createStore(
   reducer, composeWithDevTools(applyMiddleware(thunk)));
-
-

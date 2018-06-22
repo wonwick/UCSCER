@@ -9,7 +9,7 @@ module.exports = {
         Student.findOne({userName},(err, user) => {
             if (err){
                 console.warn("Authenticating Error")
-                res.send(err)
+                res.json(err)
             }
             else if (!user){
                 console.warn("UserName invalid")
@@ -20,7 +20,7 @@ module.exports = {
                 console.log(user.password)
                 if(user.password!=password){
                     console.warn("password invalid")
-                    res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+                    res.json({ success: false, messege: 'Authentication failed. Wrong password.' });
                 }
 
                 else{
@@ -38,7 +38,7 @@ module.exports = {
 
                     res.json({
                         success: true,
-                        message: 'Enjoy your token!',
+                        messege: 'Enjoy your token!',
                         token: token
                     })
                 }

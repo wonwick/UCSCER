@@ -11,19 +11,21 @@ export default (state=initialState, action) => {
             restSubjects:action.data,
         }
         case 'UNREGISTER' :
-        var newSelectedSubjects=state.selectedSubjects.filter(function(subject){ return subject.subject_code!=action.subject_code });
+        var newSelectedSubjects=state.selectedSubjects.filter(function(subject){ return subject.subject_code!==action.subject_code });
         var newRestSubjects=state.restSubjects.push(action.subject)
         return {
             selectedSubjects:newSelectedSubjects,
             restSubjects:newRestSubjects,
         }
         case 'REGISTER':
-        var newRestSubjects=state.restSubjects.filter(function(subject){ return subject.subject_code!=action.subject_code });
-        var newSelectedSubjects =state.selectedSubjects.push(action.subject)
+         newRestSubjects=state.restSubjects.filter(function(subject){ return subject.subject_code!==action.subject_code });
+         newSelectedSubjects =state.selectedSubjects.push(action.subject)
         return {
             selectedSubjects:newSelectedSubjects,
             restSubjects:newRestSubjects,
         }
+        default:
+            return{...state}
         // case 'CLAP_ARTICLE':
         // let article = Object.assign({}, state.article)
         // article.claps++
