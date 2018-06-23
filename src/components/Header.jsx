@@ -18,19 +18,45 @@ class Header extends Component {
     const token = this.props.token
 
     const isAuth = this.props.isAuth
+    function logout(){
+      localStorage.removeItem("isAuth")
+      localStorage.removeItem("token")
+      localStorage.removeItem("profile")
+    }
 
     function loadLogin() {
       if (typeof (localStorage.isAuth) != 'undefined') {
         if (isAuth) {
-          return (<a className="nav-link" href="#">{profile.name}</a>)
+          return (
+
+            <ul className="nav navbar-nav ml-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="#">{profile.name}</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/" onClick={logout.bind(this)}>Logout <span className="fa fa-sign-out"></span></a>
+              </li>
+            </ul>
+          )
         }
         else if (false) {
-          return (<a className="nav-link" href="Login">Login<span className="fa fa-sign-in"></span></a>)
+          return (
+            <ul className="nav navbar-nav ml-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="Login">Login<span className="fa fa-sign-in"></span></a>
+              </li>
+            </ul>
+          )
         }
       }
       else {
-        return (<a className="nav-link" href="Login">Login<span className="fa fa-sign-in"></span></a>)
-
+        return (
+          <ul className="nav navbar-nav ml-auto">
+            <li className="nav-item">
+              <a className="nav-link" href="Login">Login<span className="fa fa-sign-in"></span></a>
+            </li>
+          </ul>
+        )
       }
 
     }
@@ -71,7 +97,7 @@ class Header extends Component {
                 <a className="nav-link" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Register</a>
+                <a className="nav-link" href="Register">Register</a>
               </li>
             </ul>
           )

@@ -15,7 +15,7 @@ module.exports = (router) => {
      * add an article
      */
     router
-        .route('/subjects')
+        .route('/addSubjects')
         .post(subjectController.addSubject)
 
     /**

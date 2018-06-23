@@ -11,7 +11,7 @@ module.exports = (router) => {
 
     router
         .route('/subjects')
-        .get(subjectController.getSubjects)
+        .post(subjectController.getSubjects)
 
 
 

@@ -24,6 +24,8 @@ import { Switch, Route } from 'react-router-dom'
 import './css/bootstrap.min.css';
 import Feed from './components/Feed.jsx'
 import Login from './components/Login.jsx'
+import Registration from './components/Registration.jsx';
+
 
 
 
@@ -34,7 +36,7 @@ class App extends Component {
                 <Switch>                
                     <Route exact path="/" component={Feed} />   
                     <Route path="/Login" component={Login} />
-
+                    <Route path="/Register" component={Registration} />
                     <Route path="**" component={Feed} />
 
                 </Switch>

@@ -51,11 +51,11 @@ module.exports = {
         Subject.find(req.body.quary,(err, subject) => {
                 console.log(req.body.quary)
                 if (err)
-                    res.send(err)
+                    res.json(err)
                 else if (!subject)
-                    res.send(404)
+                    res.json(404)
                 else
-                    res.send(subject)
+                    res.json(subject)
             })
     },
 
