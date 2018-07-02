@@ -70,7 +70,10 @@ class Header extends Component {
                 <a className="nav-link" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Manage Student</a>
+                <a className="nav-link" href="AddStudent">Add Student</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="ManageStudents">Manage Student</a>
               </li>
             </ul>
           )
@@ -82,10 +85,13 @@ class Header extends Component {
                 <a className="nav-link" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Add Exams</a>
+                <a className="nav-link" href="AddSubject">Add Subjects</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Report</a>
+                <a className="nav-link" href="Analytics">Analytics</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="SetExam">SetExam</a>
               </li>
             </ul>
           )
@@ -98,6 +104,9 @@ class Header extends Component {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="Register">Register</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="MySubjects">My Subjects</a>
               </li>
             </ul>
           )

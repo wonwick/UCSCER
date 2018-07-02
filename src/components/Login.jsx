@@ -63,7 +63,7 @@ class Login extends Component {
                   <input type="password" className="form-control" id="password" value={this.state.password} onChange={this.handleChange} ></input>
                 </div>
                 <div className="form-group ">
-                <p>{this.props.message}</p>
+                <p className="text-danger">{this.props.message}</p>
                 <button type="buttonlogi" className="btn btn-success float-right" onClick={
                       this.submitLogin.bind(this)            
                 }>Login</button>

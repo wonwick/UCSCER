@@ -11,8 +11,8 @@ let SubjectSchema = new mongoose.Schema(
             {       
                 subject_code: String,
                 subject_name: String,
-                count:[{index_no:Number}],
-                repeat:[{index_no:Number}],
+                count:[Number],
+                repeat:[Number]
             }
         ]
     }

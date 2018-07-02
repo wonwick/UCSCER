@@ -25,6 +25,13 @@ import './css/bootstrap.min.css';
 import Feed from './components/Feed.jsx'
 import Login from './components/Login.jsx'
 import Registration from './components/Registration.jsx';
+import MySubjects from './components/MySubjects.jsx';
+import ManageStudents from './components/manageStudents.jsx';
+import AddStudent from './components/addStudent.jsx';
+import Analytics from './components/analytics.jsx';
+import AddSubject from './components/addSubject.jsx';
+import SetExam from './components/SetExam.jsx';
+
 
 
 
@@ -37,6 +44,15 @@ class App extends Component {
                     <Route exact path="/" component={Feed} />   
                     <Route path="/Login" component={Login} />
                     <Route path="/Register" component={Registration} />
+                    <Route path="/MySubjects" component={MySubjects} />
+                    <Route path="/ManageStudents" component={ManageStudents} />
+                    <Route path="/AddStudent" component={AddStudent} />
+                    <Route path="/Analytics" component={Analytics} />
+                    <Route path="/AddSubject" component={AddSubject} />
+                    <Route path="/SetExam" component={SetExam} />
+
+
+
                     <Route path="**" component={Feed} />
 
                 </Switch>

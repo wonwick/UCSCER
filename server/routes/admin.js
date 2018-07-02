@@ -4,7 +4,7 @@ const subjectController = require('./../controllers/subjects.ctrl')
 
 module.exports = (router) => {
     router
-        .route('/addStudent')
+        .route('/AddUser')
         .post(studentController.addStudent)
 
     

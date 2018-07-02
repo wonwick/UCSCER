@@ -12,47 +12,79 @@ export default (state = initialState, action) => {
                     ((action.data)[i].subjects[j])["isSelected"] = "false"
                 }
             }
-            console.log(action.data)
             return {
                 ...state,
                 restSubjects: action.data,
             }
-        case 'PLUS_SUBJECT':
-            var newSelectedSubjects = [...(state.restSubjects)]
-            console.log("newSelectedSubjects" + newSelectedSubjects)
 
-            for (var i = 0; i < (newSelectedSubjects).length; i++) {
-                for (var j = 0; j < ((newSelectedSubjects)[i].subjects).length; j++) {
-                    if (((newSelectedSubjects)[i].subjects[j])["subject_code"] == action.data.subject_code) {
-                        ((newSelectedSubjects)[i].subjects[j])["isSelected"] = "true"
+        case 'LOAD_SELECTED':
+            var newSelectedSubjects=action.StudentData.exams
+
+            return {
+                ...state,
+                selectedSubjects: newSelectedSubjects
+            }
+
+        case 'PLUS_SUBJECT':
+            var newRestSubjects = [...(state.restSubjects)]
+            var newSelectedSubject = ""
+            for (var i = 0; i < (newRestSubjects).length; i++) {
+                for (var j = 0; j < ((newRestSubjects)[i].subjects).length; j++) {
+                    if (((newRestSubjects)[i].subjects[j])["subject_code"] == action.data.subject_code) {
+                        ((newRestSubjects)[i].subjects[j])["isSelected"] = "true"
+                        newSelectedSubject = {
+                            "academic_year": (newRestSubjects)[i].academic_year,
+                            "semester": (newRestSubjects)[i].semester,
+                            "subject_code": ((newRestSubjects)[i].subjects[j])["subject_code"],
+                            "year": (newRestSubjects)[i].year,
+                            "subject_name":((newRestSubjects)[i].subjects[j])["subject_name"]
+                        }
+                        state.selectedSubjects.push(newSelectedSubject)
                     }
 
                 }
             }
-            console.log(newSelectedSubjects)
+            console.log("selectedSubjects")
+            console.log(state.selectedSubjects)
+            console.log("END of selectedSubjects")
+
             console.log(state.restSubjects)
             return {
                 ...state,
-                restSubjects: newSelectedSubjects,
+                restSubjects: newRestSubjects,
             }
         case 'MINUS_SUBJECT':
-            var newSelectedSubjects = [...(state.restSubjects)]
-            console.log("newSelectedSubjects" + newSelectedSubjects)
+            var newRestSubjects = [...(state.restSubjects)]
+            console.log("newRestSubjects" + newRestSubjects)
 
-            for (var i = 0; i < (newSelectedSubjects).length; i++) {
-                for (var j = 0; j < ((newSelectedSubjects)[i].subjects).length; j++) {
-                    if (((newSelectedSubjects)[i].subjects[j])["subject_code"] == action.data.subject_code) {
-                        ((newSelectedSubjects)[i].subjects[j])["isSelected"] = "false"
+
+            for (var i = 0; i < (newRestSubjects).length; i++) {
+                for (var j = 0; j < ((newRestSubjects)[i].subjects).length; j++) {
+                    if (((newRestSubjects)[i].subjects[j])["subject_code"] == action.data.subject_code) {
+                        ((newRestSubjects)[i].subjects[j])["isSelected"] = "false"
+
+                        state.selectedSubjects = (state.selectedSubjects).filter(function (subject) {
+                            return subject.subject_code !== action.data.subject_code;
+                        });
                     }
 
                 }
             }
-            console.log(newSelectedSubjects)
+            console.log(newRestSubjects)
             console.log(state.restSubjects)
             return {
                 ...state,
-                restSubjects: newSelectedSubjects,
+                restSubjects: newRestSubjects,
             }
+
+        case 'REGISTER':
+            console.log("REGISTER in subject")
+            var newRestSubjects = action.data.exams
+            return {
+                ...state,
+                selectedSubjects: action.data.exams
+            }
+
         default:
             return { ...state }
         // case 'CLAP_ARTICLE':
