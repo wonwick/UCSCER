@@ -8,6 +8,10 @@ import { remSub } from './../redux/actions/actions'
 import { register } from './../redux/actions/actions'
 import { submitRegistration } from './../redux/actions/actions'
 import { loadFeed } from './../redux/actions/actions'
+import * as jsPDF from 'jspdf'
+import html2canvas from 'html2canvas';
+
+
 
 
 //import FloatingSubjects from "./FloatingSubjects.jsx";

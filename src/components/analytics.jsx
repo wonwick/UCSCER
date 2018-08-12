@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Parser from 'html-react-parser';
+import ReactDOMServer from 'react-dom/server';
 import Header from './Header';
 import Footer from './Footer';
 import { connect } from 'react-redux';
@@ -6,6 +8,9 @@ import { getAllSubjects } from './../redux/actions/actions'
 import { submitRegistration } from './../redux/actions/actions'
 import { Collapse } from 'react-collapse';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import * as jsPDF from 'jspdf'
+import html2canvas from 'html2canvas';
+import { render } from 'jsx-to-dom';
 
 import { browserHistory } from 'react-router';
 const mapStateToProps = state => {
@@ -63,20 +68,20 @@ class Analytics extends Component {
           <h1>All Subjects</h1>
           <form>
             <div className="row">
-              <div className="form-group col-md-4">
+              <div className="form-group col-lg-4">
                 <label htmlFor="userType" >Academic Year :</label>
                 <select className="form-control" id="currentAcademicYear" value={this.state.currentAcademicYear} onChange={this.handleSelectChange} >
                   {academicYears}
                 </select>
               </div>
-              <div className="form-group col-md-4">
+              <div className="form-group col-lg-4">
                 <label htmlFor="userType" >Semester :</label>
                 <select className="form-control" id="currentSemester" value={this.state.currentSemester} onChange={this.handleSelectChange} >
                   <option value="1">semester 1</option>
                   <option value="2">semester 2</option>
                 </select>
               </div>
-              <div className="form-group col-md-4">
+              <div className="form-group col-lg-4">
                 <label htmlFor="userType" >year :</label>
                 <select className="form-control" id="currentYear" value={this.state.currentYear} onChange={this.handleSelectChange} >
                   <option value="1">1st year</option>
@@ -95,6 +100,9 @@ class Analytics extends Component {
       )
     }
   }
+
+
+
   collpase(subject_code) {
     console.log("clicked on " + subject_code)
 
@@ -139,7 +147,7 @@ class Analytics extends Component {
       subjectView = selectedSubjects.map(subject => {
         console.log("mapping")
         return (
-          <div class="card" >
+          <div class="card" id={("details" + subject.subject_code).replace(/\s/g, "")} >
             <a className="list-group-item list-group-item-action list-group-item-success" onClick={this.collpase.bind(this, subject.subject_code)}><strong>{(subject.subject_code).toUpperCase()} : </strong>{subject.subject_name}<span className="fa fa-plus-circle float-right fa-lg"></span></a>
             <Collapse isOpened={subject.isVisible}>
               <div id={"collapse" + subject.subject_code} class="row justify-content-center py-3" >
@@ -150,6 +158,12 @@ class Analytics extends Component {
                 <div class="card col-md-5 py-3" >
                   <p><strong>repeats: </strong>{subject.count.repeats}</p>
                   {this.loadIndexnumbers(JSON.stringify(subject.repeat))}
+                </div>
+
+                <div className="form-group py-3" id={("pb" + subject.subject_code).replace(/\s/g, "")}>
+                  <button type="buttonlogi" className="btn btn-success float-right" onClick={
+                    this.printDocument.bind(this,subject.subject_code)
+                  } >print This</button>
                 </div>
               </div>
             </Collapse>
@@ -175,17 +189,41 @@ class Analytics extends Component {
     }
     console.log(data)
     return (
-      <BarChart
-        width={500} height={250} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="normal" fill="#8884d8" />
-        <Bar dataKey="repeat" fill="#82ca9d" />
-      </BarChart>
+      <div id="TheChart">
+        <BarChart
+          width={500} height={250} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="normal" fill="#8884d8" />
+          <Bar dataKey="repeat" fill="#82ca9d" />
+        </BarChart>
+      </div>
     )
+  }
+
+
+  printDocument(id) {
+    var input = document.getElementById(("details"+id).replace(/\s/g, ""));
+ 
+
+  
+
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        // pdf.output('dataurlnewwindow');
+        pdf.save(id+    ".pdf");
+      })
+      ;
+  }
+
+  printWholeDocument(id) {
+      window.print()
   }
 
 
@@ -195,15 +233,21 @@ class Analytics extends Component {
     console.log("rendered")
 
     return (
-      <div className="pmyx-0">
+      <div className="pmyx-0" id="divToPrint" >
         <Header />
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" id="toPrint">
           {this.loadSelecter()}
 
           <div className="card col-md-5 bg-light mx-5 my-5 p-5">
             <h1>Graphical representation</h1>
             {this.plotData()}
+            <div className="form-group py-3">
+                  <button type="buttonlogi" className="btn btn-success float-right" onClick={
+                    this.printWholeDocument.bind(this)
+                  } >print This</button>
+                </div>
           </div>
+
         </div>
         <div className="row justify-content-center">
 
